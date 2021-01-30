@@ -6,8 +6,8 @@ The repository contains:
 
 ## Dependencies
 1) __rust-big-dataframes__ 
-    - polars = "0.12.0"<br>
-    - rayon = "1.5.0"
+    > polars = "0.12.0"<br>
+    > rayon = "1.5.0"
 2) __TBC [work in progress]__
 
 ## Credits
