@@ -11,6 +11,6 @@ The repository contains:
 2) __TBC [work in progress]__
 
 ## Credits
-Adapted from the examples in: 
+Adapted from the Polars examples in: 
 https://github.com/ritchie46/polars
 
