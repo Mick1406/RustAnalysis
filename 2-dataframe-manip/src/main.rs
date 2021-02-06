@@ -14,7 +14,7 @@
 // Create a utils script for using when conducting an analysis using Polars in Rust
 
 
-use polars::prelude::* 
+use polars::prelude::* ;
 
 fn main()  {
     // 1) Create a DataFrame with data
@@ -31,21 +31,39 @@ fn main()  {
     let s1 = Series::new("n", &[1, 2, 3, 4, 5]);
     let s2 = Utf8Chunked::full("channel", "email", 5).into();
 
-    let df = DataFrame::new(vec![s0, s1, s2]).expect("something went wrong");
+    let mut df = DataFrame::new(vec![s0, s1, s2]).expect("something went wrong");
 
     // Sort the dataframe by date 
     let reverse = false;
-    df.sort("dates", reverse).expect("column not sortable")
-
+    df.sort("dates", reverse).expect("column not sortable");
     println!("{}", df) ;
 
     // Get the columns data types of the resulting DataFrame
-        df.dtypes()
-        .iter()
-        .zip(df.get_column_names().iter())
-        .for_each(|(dtype, name)| 
-        println!("Column: '{}',\t dtype: {:?}", name, dtype))
+    print_data_types(&mut df);
+
+    // Select date column only - yiels another dataframe (use .column for serie)
+    df.select("dates").expect("columns don't exist");
+
+    // Slice the dataframe
+    let offset = 2;
+    let length = 2;
+    df.slice(offset, length).expect("slice was not within bounds");
 
 }
 
 
+// Function that prints the data types of
+// each column for a given dataframe.
+//
+// Input: DataFrame
+fn print_data_types(df: &mut polars::prelude::DataFrame){
+    df.dtypes()
+        .iter()
+        .zip(df.get_column_names().iter())
+        .for_each(|(dtype, name)| 
+        println!("Column: '{}',\t dtype: {:?}", name, dtype))
+}
+
+// fn df_new_column(df: &mut DataFrame, serie: Series){
+    
+// }
